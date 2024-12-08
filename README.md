@@ -1,1 +1,1 @@
-![这是图片](/assets/img/philly-magic-garden.jpg "Magic Gardens")
+![这是图片](gitREAD/pictures/Snipaste_2024-12-08_14-20-22.png "Magic Gardens")
