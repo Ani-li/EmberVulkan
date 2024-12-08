@@ -1,4 +1,0 @@
-# ninja log v5
-7	192	7553252018383536	build.ninja	3e63b18f4fd81871
-13	1318	7553246891058869	VulkanTest03/CMakeFiles/VulkanTest03.dir/VulkanTest03.cpp.obj	adcbbd42a4bdaff5
-1318	1573	7553246892564819	VulkanTest03/VulkanTest03.exe	2d2615e2fdac57fd
