@@ -17,6 +17,10 @@ layout(push_constant) uniform Push{
 	vec4 pointLightColor;
 }push;
 
+layout(binding = 0) uniform UniformBufferObject {
+    vec3 TestColor;
+} ubo;
+
 const vec3 AMBIENT = {0.02f,0.02f,0.02f};
 
 void main(){
@@ -34,6 +38,6 @@ void main(){
 
 	vec3 finalColor = fragColor * (diffuseLight + AMBIENT);
 
-	outColor_1 = vec4(finalColor,1.0);
+	outColor_1 = vec4(finalColor * ubo.TestColor,1.0);
 	outColor_2 = vec4(fragNormal_WS,1.0);
 }

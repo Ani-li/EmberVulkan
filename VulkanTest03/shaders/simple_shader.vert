@@ -20,6 +20,10 @@ layout(push_constant) uniform Push{
 	vec4 pointLightColor;
 }push;
 
+layout(binding = 0) uniform UniformBufferObject {
+    vec3 TestColor;
+} ubo;
+
 void main(){
  	gl_Position = push.projectionMatrix * push.viewMatrix * push.modelMatrix * vec4(position,1.0);
 	mat3 normalMatrix = transpose(inverse(mat3(push.modelMatrix)));

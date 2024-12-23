@@ -12,7 +12,8 @@ namespace eb {
 		ebLogicalDevicesAndQueue(Init_vkInstance, Init_surface, ebVkInstance.ebValidationLayers.getValidationLayersCount(), ebVkInstance.ebValidationLayers.getValidationLayers(), this),
 		ebCommandPool(Init_device, Init_graphicsFamily, Init_graphicsQueue, this),
 		ebSwapChain(Init_device, Init_physicalDevice, Init_surface, Init_window, this),
-		ebSyncObject(Init_device, this)
+		ebSyncObject(Init_device, this),
+		ebDescriptorPool(Init_device, this)
 	{
 
 	}

@@ -14,7 +14,8 @@ namespace eb
 		vertFilepath(vertFilepath),
 		fragFilepath(fragFilepath),
 		ebModelCache(ebSetup),
-		ebPushConstantCache(ebSetup)
+		ebPushConstantCache(ebSetup),
+		ebDescriptorCache(ebSetup)
 	{
 
 	}
@@ -151,6 +152,8 @@ namespace eb
 		vkCmdBeginRenderPass(commandBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
 		cmd = commandBuffer;
+
+		ebDescriptorCache.BindDescriptorSet(commandBuffer, pipelineConfigInfo.pipelineLayout);
 	}
 
 	void EbRenderPassFactory::endRenderPass(VkCommandBuffer commandBuffer)
@@ -169,6 +172,7 @@ namespace eb
 		createFrameBuffer();
 		registerModel(ebModelCache);
 		registerConstantValue(ebPushConstantCache);
+		registerDescriptorValue(ebDescriptorCache);
 		createPipelineConfigInfo();
 		createPipelineLayout();
 		overridePipelineConfigInfo(pipelineConfigInfo);
@@ -197,8 +201,8 @@ namespace eb
 
 		VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
 		pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-		pipelineLayoutInfo.setLayoutCount = 0;
-		pipelineLayoutInfo.pSetLayouts = nullptr;
+		pipelineLayoutInfo.setLayoutCount = 1;
+		pipelineLayoutInfo.pSetLayouts = ebDescriptorCache.getVkDescriptorSetLayout();
 		pipelineLayoutInfo.pushConstantRangeCount = 1;
 		pipelineLayoutInfo.pPushConstantRanges = &pushConstantRange;
 		if (vkCreatePipelineLayout(ebSetup.Init_device, &pipelineLayoutInfo, nullptr, &pipelineConfigInfo.pipelineLayout) != VK_SUCCESS)
@@ -219,5 +223,10 @@ namespace eb
 			throw std::runtime_error("render pass has not been initialized!");
 		}
 		ebPushConstantCache.updateConstantValue(cmd, pipelineConfigInfo.pipelineLayout, variableName, data);
+	}
+
+	void EbRenderPassFactory::updateDescriptorValue(const std::string& variableName, const void* data)
+	{
+		ebDescriptorCache.updateUniformBufferMember(variableName, data);
 	}
 }

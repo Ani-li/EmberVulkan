@@ -15,6 +15,7 @@
 #include "../Pipeline/eb_pipelineConfig.hpp"
 #include "../Model/eb_modelCache.hpp"
 #include "../PushConstant/eb_pushConstantCache.hpp"
+#include "../DescriptorSet/eb_descriptorSetCache.hpp"
 #include "../Camera/eb_camera.hpp"
 
 namespace eb
@@ -78,10 +79,15 @@ namespace eb
 		virtual void registerConstantValue(EbPushConstantCache& ebPushConstantCache) {};
 		void updateConstantValue(const std::string& variableName, const void* data);
 
+		//DescriptorSet
+		virtual void registerDescriptorValue(EbDescriptorSetCache& ebDescriptorCache) {};
+		void updateDescriptorValue(const std::string& variableName, const void* data);
+
 	private:
 		EbSetup& ebSetup;
 		VkCommandBuffer cmd;
 		EbModelCache ebModelCache;
+		EbDescriptorSetCache ebDescriptorCache;
 		EbPushConstantCache ebPushConstantCache;
 
 		VkRenderPass renderPass;

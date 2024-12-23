@@ -12,6 +12,7 @@
 #include "module/eb_commandPool.hpp"
 #include "module/eb_swapChain.hpp"
 #include "module/eb_syncObject.hpp"
+#include "module/eb_descriptorPool.hpp"
 
 namespace eb {
 	class EbSetup
@@ -36,6 +37,7 @@ namespace eb {
 		VkSemaphore Init_imageAvailableSemaphore;
 		VkSemaphore Init_renderFinishedSemaphore;
 		VkFence Init_inFlightFence;
+		VkDescriptorPool Init_descriptorPool;
 
 	public:
 		EbSetup(
@@ -58,6 +60,10 @@ namespace eb {
 		EbCommandPool ebCommandPool;
 		EbSwapChain ebSwapChain;
 		EbSyncObject ebSyncObject;
+		EbDescriptorPool ebDescriptorPool;
+
+	public:
+		EbDescriptorPool& getEbDescriptorPool() { return ebDescriptorPool; };
 	};
 }
 

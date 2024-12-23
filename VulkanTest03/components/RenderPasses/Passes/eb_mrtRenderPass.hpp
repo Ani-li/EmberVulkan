@@ -24,6 +24,8 @@ namespace eb
 
 		void registerConstantValue(EbPushConstantCache& ebPushConstantCache) override;
 
+		void registerDescriptorValue(EbDescriptorSetCache& ebDescriptorCache) override;
+
 		void execute(VkCommandBuffer commandBuffer, EbCamera& camera) override;
 
 	private:

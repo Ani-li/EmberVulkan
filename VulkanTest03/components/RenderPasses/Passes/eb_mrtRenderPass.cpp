@@ -136,9 +136,16 @@ namespace eb
 		ebPushConstantCache.registerConstantValue("pointLightColor", sizeof(glm::vec4));
 	}
 
+	void EbMrtRenderPass::registerDescriptorValue(EbDescriptorSetCache& ebDescriptorCache)
+	{
+		ebDescriptorCache.registerUniformBufferMember("TestColor", sizeof(glm::vec3));
+	}
+
 	void EbMrtRenderPass::execute(VkCommandBuffer commandBuffer, EbCamera& camera)
 	{
-		
+		glm::vec3 TestColor = { 1.0f,0.0f,0.0f};
+		updateDescriptorValue("TestColor", &TestColor);
+
 		updateConstantValue("projectionMatrix", &camera.getProjection());
 		updateConstantValue("viewMatrix", &camera.getView());
 		
