@@ -12,7 +12,7 @@ namespace eb
 		EbDescriptorSetCache(EbSetup& ebSetup);
 		~EbDescriptorSetCache();
 
-		void BindDescriptorSet(VkCommandBuffer cmd, VkPipelineLayout layout);
+		void bindDescriptorSet(VkCommandBuffer cmd, VkPipelineLayout layout);
 		VkDescriptorSetLayout* getVkDescriptorSetLayout();
 
 	private:

@@ -153,7 +153,7 @@ namespace eb
 
 		cmd = commandBuffer;
 
-		ebDescriptorCache.BindDescriptorSet(commandBuffer, pipelineConfigInfo.pipelineLayout);
+		ebDescriptorCache.bindDescriptorSet(commandBuffer, pipelineConfigInfo.pipelineLayout);
 	}
 
 	void EbRenderPassFactory::endRenderPass(VkCommandBuffer commandBuffer)

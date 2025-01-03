@@ -15,7 +15,7 @@ namespace eb
 		vkDestroyDescriptorSetLayout(ebSetup.Init_device, descriptorSetData.layout, nullptr);
 	}
 
-	void EbDescriptorSetCache::BindDescriptorSet(VkCommandBuffer cmd, VkPipelineLayout layout)
+	void EbDescriptorSetCache::bindDescriptorSet(VkCommandBuffer cmd, VkPipelineLayout layout)
 	{
 		vkCmdBindDescriptorSets(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, layout, 0, 1, &descriptorSetData.set, 0, nullptr);
 	}
