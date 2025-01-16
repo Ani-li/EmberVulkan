@@ -41,6 +41,7 @@ namespace eb {
 		};
 
 		void pickPhysicalDevice(VkInstance instance, VkSurfaceKHR surface);
+		void printPhysicalDeviceInfo(VkPhysicalDevice device);
 		bool isDeviceSuitable(VkPhysicalDevice device, VkSurfaceKHR surface);
 		bool checkDeviceExtensionSupport(VkPhysicalDevice device);
 		QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device, VkSurfaceKHR surface);

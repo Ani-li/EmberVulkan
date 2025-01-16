@@ -1,4 +1,5 @@
 #include "eb_physicalDevicesAndQueue.hpp"
+#include "iostream"
 
 namespace eb {
 	EbPhysicalDevicesAndQueue::EbPhysicalDevicesAndQueue(
@@ -25,6 +26,7 @@ namespace eb {
 		for (const auto& device : devices) {
 			if (isDeviceSuitable(device, surface)) {
 				physicalDevice = device;
+				printPhysicalDeviceInfo(device);
 				queueFamilyIndices = findQueueFamilies(physicalDevice, surface);
 				break;
 			}
@@ -37,9 +39,11 @@ namespace eb {
 
 	bool EbPhysicalDevicesAndQueue::isDeviceSuitable(VkPhysicalDevice device, VkSurfaceKHR surface) {
 		QueueFamilyIndices indices = findQueueFamilies(device, surface);
-		bool extensionsSupported = checkDeviceExtensionSupport(device);
 
+		bool extensionsSupported = checkDeviceExtensionSupport(device);
 		bool swapChainAdequate = false;
+		bool pushConstantMaxSizeAdequate = false;
+
 		if (extensionsSupported) {
 			uint32_t formatCount;
 			vkGetPhysicalDeviceSurfaceFormatsKHR(device, surface, &formatCount, nullptr);
@@ -48,9 +52,14 @@ namespace eb {
 			vkGetPhysicalDeviceSurfacePresentModesKHR(device, surface, &presentModeCount, nullptr);
 
 			swapChainAdequate = !(formatCount == 0) && !(presentModeCount == 0);
+
+			VkPhysicalDeviceProperties deviceProperties;
+			vkGetPhysicalDeviceProperties(device, &deviceProperties);
+
+			pushConstantMaxSizeAdequate = deviceProperties.limits.maxPushConstantsSize >= 256;
 		}
 
-		return indices.graphicsFamily.has_value() && extensionsSupported && swapChainAdequate;
+		return indices.graphicsFamily.has_value() && extensionsSupported && swapChainAdequate && pushConstantMaxSizeAdequate;
 	}
 
 	bool EbPhysicalDevicesAndQueue::checkDeviceExtensionSupport(VkPhysicalDevice device) {
@@ -116,5 +125,23 @@ namespace eb {
 		}
 
 		return extensions;
+	}
+
+	void EbPhysicalDevicesAndQueue::printPhysicalDeviceInfo(VkPhysicalDevice device)
+	{
+		VkPhysicalDeviceProperties deviceProperties;
+		vkGetPhysicalDeviceProperties(device, &deviceProperties);
+
+		std::cout << "_______________Current Device______________" << std::endl;
+		std::cout << "___________________________________________" << std::endl;
+		std::cout << "Device Name: " << deviceProperties.deviceName << std::endl;
+		std::cout << "API Version: " << VK_VERSION_MAJOR(deviceProperties.apiVersion)
+			<< "." << VK_VERSION_MINOR(deviceProperties.apiVersion)
+			<< "." << VK_VERSION_PATCH(deviceProperties.apiVersion) << std::endl;
+		std::cout << "Driver Version: " << deviceProperties.driverVersion << std::endl;
+		std::cout << "Vendor ID: " << deviceProperties.vendorID << std::endl;
+		std::cout << "Device ID: " << deviceProperties.deviceID << std::endl;
+		std::cout << "___________________________________________" << std::endl;
+		std::cout << " " << std::endl;
 	}
 }
