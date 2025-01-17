@@ -53,7 +53,7 @@ namespace eb
 			float angleDegreesY
 		);
 
-		void screenInput_moveTarget(
+		void screenInput_moveTargetAndItself(
 			float X,
 			float Y
 		);

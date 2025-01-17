@@ -52,7 +52,7 @@ namespace eb
 			double deltaX = currentX - lastX;
 			double deltaY = currentY - lastY;
 
-			camera->screenInput_moveTarget(
+			camera->screenInput_moveTargetAndItself(
 				static_cast<float>(-deltaX * moveSpeed),
 				static_cast<float>(deltaY * moveSpeed)
 			);

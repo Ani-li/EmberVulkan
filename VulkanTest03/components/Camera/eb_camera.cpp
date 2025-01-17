@@ -112,7 +112,7 @@ namespace eb
 		updateViewMatrix();
 	}
 
-	void EbCamera::screenInput_moveTarget(
+	void EbCamera::screenInput_moveTargetAndItself(
 		float X,
 		float Y
 	)
@@ -121,7 +121,12 @@ namespace eb
 		curTarget = target + X * direct.right;
 		curTarget = curTarget + Y * direct.up;
 
+		glm::vec3 curPos = position;
+		curPos = position + X * direct.right;
+		curPos = curPos + Y * direct.up;
+
 		setTarget(curTarget);
+		setPosition(curPos);
 	}
 
 	void EbCamera::screenInput_zoomTarget(
